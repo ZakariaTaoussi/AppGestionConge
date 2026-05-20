@@ -1,5 +1,6 @@
 package com.example.backend.exception;
 
+import com.example.backend.exception.auth.IdentifiantsInvalidesException;
 import com.example.backend.exception.utilisateur.UtilisateurDejaExisteException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,13 @@ public class GlobalExceptionHandler {
             UtilisateurDejaExisteException exception
     ) {
         return buildResponse(HttpStatus.CONFLICT, exception.getMessage());
+    }
+
+    @ExceptionHandler(IdentifiantsInvalidesException.class)
+    public ResponseEntity<ErrorResponse> handleIdentifiantsInvalidesException(
+            IdentifiantsInvalidesException exception
+    ) {
+        return buildResponse(HttpStatus.UNAUTHORIZED, exception.getMessage());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)

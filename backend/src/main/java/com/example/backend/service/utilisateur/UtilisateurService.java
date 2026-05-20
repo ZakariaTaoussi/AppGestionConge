@@ -8,6 +8,7 @@ import com.example.backend.dto.utilisateur.UtilisateurResponse;
 import com.example.backend.exception.utilisateur.UtilisateurDejaExisteException;
 import com.example.backend.mapper.utilisateur.UtilisateurMapper;
 import com.example.backend.repository.UtilisateurRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +18,11 @@ import java.util.List;
 public class UtilisateurService {
 
     private final UtilisateurRepository utilisateurRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UtilisateurService(UtilisateurRepository utilisateurRepository) {
+    public UtilisateurService(UtilisateurRepository utilisateurRepository, PasswordEncoder passwordEncoder) {
         this.utilisateurRepository = utilisateurRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -27,6 +30,7 @@ public class UtilisateurService {
         String nom = requiredText(request.nom(), "Le nom est obligatoire");
         String prenom = requiredText(request.prenom(), "Le prenom est obligatoire");
         Email email = new Email(request.email());
+        String password = encodePasswordIfPresent(request.password());
         Role role = requiredRole(request.role());
 
         utilisateurRepository.findByEmailValue(email.getValue())
@@ -34,7 +38,7 @@ public class UtilisateurService {
                     throw new UtilisateurDejaExisteException(email.getValue());
                 });
 
-        Utilisateur utilisateur = new Utilisateur(nom, prenom, email, role);
+        Utilisateur utilisateur = new Utilisateur(nom, prenom, email, password, role);
         Utilisateur savedUtilisateur = utilisateurRepository.save(utilisateur);
 
         return UtilisateurMapper.toResponse(savedUtilisateur);
@@ -60,5 +64,15 @@ public class UtilisateurService {
             throw new IllegalArgumentException("Le role est obligatoire");
         }
         return role;
+    }
+
+    private String encodePasswordIfPresent(String password) {
+        if (password == null || password.isBlank()) {
+            return null;
+        }
+        if (password.length() < 8) {
+            throw new IllegalArgumentException("Le mot de passe doit contenir au moins 8 caracteres");
+        }
+        return passwordEncoder.encode(password);
     }
 }

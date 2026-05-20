@@ -1,4 +1,8 @@
 package com.example.backend.dto.auth;
 
-public record LoginResponse() {
+import com.example.backend.dto.utilisateur.UtilisateurResponse;
+
+public record LoginResponse(
+        UtilisateurResponse utilisateur
+) {
 }

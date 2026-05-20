@@ -6,6 +6,7 @@ public record CreateUtilisateurRequest(
         String nom,
         String prenom,
         String email,
+        String password,
         Role role
 ) {
 }

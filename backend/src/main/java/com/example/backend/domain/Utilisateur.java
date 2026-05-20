@@ -27,6 +27,9 @@ public class Utilisateur {
     @Embedded
     private Email email;
 
+    @Column
+    private String password;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
@@ -35,10 +38,11 @@ public class Utilisateur {
         // Required by JPA.
     }
 
-    public Utilisateur(String nom, String prenom, Email email, Role role) {
+    public Utilisateur(String nom, String prenom, Email email, String password, Role role) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
+        this.password = password;
         this.role = role;
     }
 
@@ -72,6 +76,14 @@ public class Utilisateur {
 
     public void setEmail(Email email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Role getRole() {
