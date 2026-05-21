@@ -57,6 +57,11 @@ public class JwtService {
         return parseClaims(token).getSubject();
     }
 
+    public String extractRole(String token) {
+        Object value = parseClaims(token).get("role");
+        return value != null ? value.toString() : null;
+    }
+
     private Claims parseClaims(String token) {
         return Jwts.parser()
                 .verifyWith(secretKey)
