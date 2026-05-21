@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Role } from '../../core/enums/role.enum';
+import { AuthService } from '../../core/services/auth.service';
 
 interface NavItem {
   label: string;
@@ -17,13 +18,18 @@ interface NavItem {
   styleUrls: ['../employe-layout/employe-layout.component.scss'],
 })
 export class AdminLayoutComponent {
+  constructor(private readonly authService: AuthService) {}
+
   isSidebarCollapsed = signal(false);
-  currentUser = {
-    nom: 'Admin',
-    role: Role.ADMINISTRATEUR,
-    avatar: 'AD',
-    departement: 'Administration',
-  };
+
+  get currentUser() {
+    return this.authService.userView({
+      nom: 'Admin',
+      role: Role.ADMINISTRATEUR,
+      avatar: 'AD',
+      departement: 'Administration',
+    });
+  }
 
   navItems: NavItem[] = [
     { label: 'Dashboard', route: '/admin/dashboard', icon: 'dashboard' },
@@ -33,6 +39,10 @@ export class AdminLayoutComponent {
     { label: 'Regle Conge', route: '/admin/regle', icon: 'file-text' },
     { label: 'Profil', route: '/admin/profil', icon: 'user' },
   ];
+
+  logout(): void {
+    this.authService.logoutAndRedirect();
+  }
 
   toggleSidebar() {
     this.isSidebarCollapsed.update(v => !v);

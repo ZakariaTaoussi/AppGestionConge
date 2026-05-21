@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Role } from '../../core/enums/role.enum';
+import { AuthService } from '../../core/services/auth.service';
 
 interface NavItem {
   label: string;
@@ -17,13 +18,18 @@ interface NavItem {
   styleUrls: ['./responsable-layout.component.scss'],
 })
 export class ResponsableLayoutComponent {
+  constructor(private readonly authService: AuthService) {}
+
   isSidebarCollapsed = signal(false);
-  currentUser = {
-    nom: 'Karim Ouni',
-    role: Role.RESPONSABLE,
-    avatar: 'RS',
-    departement: 'Encadrement',
-  };
+
+  get currentUser() {
+    return this.authService.userView({
+      nom: 'Karim Ouni',
+      role: Role.RESPONSABLE,
+      avatar: 'RS',
+      departement: 'Encadrement',
+    });
+  }
 
   navItems: NavItem[] = [
     { label: 'Dashboard',           route: '/responsable/dashboard',         icon: 'grid' },
@@ -38,6 +44,10 @@ export class ResponsableLayoutComponent {
 
   toggleSidebar() {
     this.isSidebarCollapsed.update(v => !v);
+  }
+
+  logout(): void {
+    this.authService.logoutAndRedirect();
   }
 
   getIcon(name: string): string {

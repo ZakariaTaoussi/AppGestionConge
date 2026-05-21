@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Role } from '../../core/enums/role.enum';
+import { AuthService } from '../../core/services/auth.service';
 
 interface NavItem {
   label: string;
@@ -17,17 +18,22 @@ interface NavItem {
   styleUrls: ['./rh-layout.component.scss'],
 })
 export class RhLayoutComponent {
+  constructor(private readonly authService: AuthService) {}
+
   isSidebarCollapsed = signal(false);
-  currentUser = {
-    nom: 'Samar Haddad',
-    role: Role.RH,
-    avatar: 'RH',
-    departement: 'Ressources Humaines',
-  };
+
+  get currentUser() {
+    return this.authService.userView({
+      nom: 'Samar Haddad',
+      role: Role.RH,
+      avatar: 'RH',
+      departement: 'Ressources Humaines',
+    });
+  }
 
   navItems: NavItem[] = [
     { label: 'Dashboard',       route: '/rh/dashboard',         icon: 'grid' },
-    { label: 'Employes',        route: '/rh/Employes',          icon: 'users' },
+    { label: 'Employes',        route: '/rh/employes',          icon: 'users' },
     { label: 'Mes Demandes',    route: '/rh/mes-demandes',      icon: 'file-text' },
     { label: 'Mes Absences',    route: '/rh/mes-absences',      icon: 'calendar-off' },
     { label: 'Nouvelle Demande',route: '/rh/nouvelle-demande',  icon: 'plus-circle' },
@@ -37,6 +43,10 @@ export class RhLayoutComponent {
 
   toggleSidebar() {
     this.isSidebarCollapsed.update(v => !v);
+  }
+
+  logout(): void {
+    this.authService.logoutAndRedirect();
   }
 
   getIcon(name: string): string {

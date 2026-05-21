@@ -25,6 +25,10 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String path = request.getRequestURI();
 
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            return true;
+        }
+
         // Allow only login/logout public endpoints under /api/auth
         if (path.startsWith("/api/auth/login") || path.startsWith("/api/auth/logout")
                 || path.startsWith("/auth/login") || path.startsWith("/auth/logout")) {

@@ -2,13 +2,13 @@
   <aside class="login__brand">
     <div class="login__logo">
       <span class="login__logo-mark">G</span>
-      <span>GestionCongé</span>
+      <span>GestionCong&eacute;</span>
     </div>
 
     <div class="login__hero">
-      <p class="login__eyebrow">Congés & absences</p>
-      <h1>Pilotez les congés avec clarté.</h1>
-      <p>Demandes, validations, absences et soldes réunis dans une interface simple et propre.</p>
+      <p class="login__eyebrow">Cong&eacute;s & absences</p>
+      <h1>Pilotez les cong&eacute;s avec clart&eacute;.</h1>
+      <p>Demandes, validations, absences et soldes reunis dans une interface simple et propre.</p>
     </div>
 
     <div class="login__metrics">
@@ -30,9 +30,9 @@
   <section class="login__panel">
     <div class="login__form-wrap">
       <header class="login__header">
-        <span class="login__mobile-brand">GestionCongé</span>
+        <span class="login__mobile-brand">GestionCong&eacute;</span>
         <h2>Connexion</h2>
-        <p>Entrez vos identifiants pour accéder à votre compte.</p>
+        <p>Entrez vos identifiants pour acceder a votre compte.</p>
       </header>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -50,17 +50,22 @@
         <div class="field">
           <div class="field__row">
             <label for="password">Mot de passe</label>
-            <button type="button" class="link">Mot de passe oublié ?</button>
+            <button type="button" class="link">Mot de passe oubli&eacute; ?</button>
           </div>
           <div class="field__password">
             <input
               id="password"
-              type="password"
+              [type]="showPassword() ? 'text' : 'password'"
               formControlName="password"
-              placeholder="••••••••"
+              placeholder="********"
               autocomplete="current-password"
             />
-            <button type="button" class="field__toggle" aria-label="Afficher le mot de passe">
+            <button
+              type="button"
+              class="field__toggle"
+              [attr.aria-label]="showPassword() ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+              (click)="togglePasswordVisibility()"
+            >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M1 12C1 12 5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
@@ -74,10 +79,10 @@
           Se souvenir de moi
         </label>
 
-        <p class="form__error"></p>
+        <p class="form__error">{{ errorMessage() }}</p>
 
-        <button type="submit" class="btn-primary">
-          Se connecter
+        <button type="submit" class="btn-primary" [disabled]="isSubmitting()">
+          {{ isSubmitting() ? 'Connexion...' : 'Se connecter' }}
         </button>
       </form>
     </div>
