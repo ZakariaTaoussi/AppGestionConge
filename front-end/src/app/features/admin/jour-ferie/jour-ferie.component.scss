@@ -3,4 +3,7 @@
 .form-actions { grid-column: 1 / -1; }
 .card-title { padding: 20px; border-bottom: 1px solid #eef2f7; }
 table { min-width: 860px; }
+.error-message { color: #b91c1c; font-weight: 700; }
+.pagination { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 16px 20px; border-top: 1px solid #eef2f7; color: #526783; font-weight: 700; }
+button:disabled { cursor: not-allowed; opacity: .6; }
 @media (max-width: 760px) { .form-grid { grid-template-columns: 1fr; } }

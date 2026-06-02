@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 interface Employe {
   id: number;
-  matricule: string;
+  prenom: string;
   nom: string;
   email: string;
   role: string;
@@ -29,20 +29,23 @@ export class AdminEmployesComponent {
   roles = ['Employe', 'Responsable', 'RH', 'Directeur General', 'Administrateur'];
 
   employes: Employe[] = [
-    { id: 1, matricule: 'EMP-0042', nom: 'Ahmed Benali', email: 'ahmed.benali@demo.ma', role: 'Employe', departement: 'Informatique', statut: 'Actif' },
-    { id: 2, matricule: 'EMP-0057', nom: 'Lina Mansouri', email: 'lina.mansouri@demo.ma', role: 'Responsable', departement: 'Finance', statut: 'Actif' },
-    { id: 3, matricule: 'EMP-0024', nom: 'Nadia El Fassi', email: 'nadia.elfassi@demo.ma', role: 'RH', departement: 'Ressources Humaines', statut: 'Actif' },
+    { id: 1, prenom: 'Ahmed', nom: 'Benali', email: 'ahmed.benali@demo.ma', role: 'Employe', departement: 'Informatique', statut: 'Actif' },
+    { id: 2, prenom: 'Lina', nom: 'Mansouri', email: 'lina.mansouri@demo.ma', role: 'Responsable', departement: 'Finance', statut: 'Actif' },
+    { id: 3, prenom: 'Nadia', nom: 'El Fassi', email: 'nadia.elfassi@demo.ma', role: 'RH', departement: 'Ressources Humaines', statut: 'Actif' },
   ];
 
   form: EmployeForm = this.emptyForm();
 
   get employesFiltres(): Employe[] {
     const term = this.searchTerm.trim().toLowerCase();
-    return this.employes.filter(employe => !term || employe.nom.toLowerCase().includes(term));
+    return this.employes.filter(employe => {
+      const nomComplet = `${employe.prenom} ${employe.nom}`.toLowerCase();
+      return !term || nomComplet.includes(term);
+    });
   }
 
   enregistrer(): void {
-    if (!this.form.nom.trim() || !this.form.email.trim()) {
+    if (!this.form.prenom.trim() || !this.form.nom.trim() || !this.form.email.trim()) {
       return;
     }
 
@@ -60,7 +63,7 @@ export class AdminEmployesComponent {
 
   modifier(employe: Employe): void {
     this.editingId = employe.id;
-    this.form = { matricule: employe.matricule, nom: employe.nom, email: employe.email, role: employe.role, departement: employe.departement, statut: employe.statut };
+    this.form = { prenom: employe.prenom, nom: employe.nom, email: employe.email, role: employe.role, departement: employe.departement, statut: employe.statut };
   }
 
   supprimer(employe: Employe): void {
@@ -76,6 +79,6 @@ export class AdminEmployesComponent {
   }
 
   private emptyForm(): EmployeForm {
-    return { matricule: '', nom: '', email: '', role: 'Employe', departement: this.departements[0], statut: 'Actif' };
+    return { prenom: '', nom: '', email: '', role: 'Employe', departement: this.departements[0], statut: 'Actif' };
   }
 }

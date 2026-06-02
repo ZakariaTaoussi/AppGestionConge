@@ -1,6 +1,6 @@
 package com.example.backend.config;
 
-import com.example.backend.web.AuthorizationInterceptor;
+import com.example.backend.security.AuthorizationInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

@@ -8,7 +8,12 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "utilisateurs")
@@ -34,6 +39,13 @@ public class Utilisateur {
     @Column(nullable = false)
     private Role role;
 
+    @ManyToOne
+    @JoinColumn(name = "departement_id")
+    private Departement departement;
+
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
     protected Utilisateur() {
         // Required by JPA.
     }
@@ -44,6 +56,16 @@ public class Utilisateur {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    public Utilisateur(String nom, String prenom, Email email, String password, Role role, Departement departement) {
+        this(nom, prenom, email, password, role);
+        this.departement = departement;
+    }
+
+    @PrePersist
+    void onCreate() {
+        createdAt = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -92,5 +114,17 @@ public class Utilisateur {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Departement getDepartement() {
+        return departement;
+    }
+
+    public void setDepartement(Departement departement) {
+        this.departement = departement;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }

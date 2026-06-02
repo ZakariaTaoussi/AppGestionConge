@@ -1,6 +1,5 @@
-package com.example.backend.web;
+package com.example.backend.security;
 
-import com.example.backend.service.auth.JwtService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

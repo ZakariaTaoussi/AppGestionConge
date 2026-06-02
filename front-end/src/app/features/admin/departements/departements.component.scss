@@ -1,6 +1,20 @@
 @use '../employes/employes.component.scss';
-.form-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.form-card { position: relative; z-index: 2; overflow: visible; }
+.table-card { position: relative; z-index: 1; }
 .card-title { padding: 20px; border-bottom: 1px solid #eef2f7; }
 table { min-width: 720px; }
+.responsable-field { position: relative; }
+.responsable-input { position: relative; }
+.responsable-input input { padding-right: 38px; }
+.clear-responsable { position: absolute; top: 50%; right: 10px; border: 0; background: transparent; color: #64748b; font-size: 1rem; transform: translateY(-50%); cursor: pointer; }
+.suggestions { position: absolute; z-index: 10; top: calc(100% + 6px); right: 0; left: 0; overflow-y: auto; max-height: 230px; border: 1px solid #d7e0e8; border-radius: 8px; background: #fff; box-shadow: 0 10px 24px rgba(15, 23, 42, .14); }
+.suggestion { display: flex; width: 100%; padding: 10px 12px; border: 0; border-bottom: 1px solid #eef2f7; background: #fff; text-align: left; cursor: pointer; flex-direction: column; gap: 3px; }
+.suggestion:hover { background: #f1f6f9; }
+.suggestion span { color: #64748b; font-size: .74rem; }
+.no-suggestion { padding: 12px; font-size: .82rem; }
+.error-message { color: #b91c1c; font-weight: 700; }
+.pagination { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 16px 20px; border-top: 1px solid #eef2f7; color: #526783; font-weight: 700; }
+button:disabled { cursor: not-allowed; opacity: .6; }
 @media (max-width: 900px) { .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }

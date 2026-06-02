@@ -11,8 +11,8 @@
     <h2>{{ editingId ? 'Modifier un compte' : 'Creer un compte' }}</h2>
     <form class="form-grid" (ngSubmit)="enregistrer()">
       <label class="field">
-        <span>Matricule</span>
-        <input name="matricule" [(ngModel)]="form.matricule" placeholder="EMP-0000" required />
+        <span>Prenom</span>
+        <input name="prenom" [(ngModel)]="form.prenom" placeholder="Prenom de l'employe" required />
       </label>
       <label class="field">
         <span>Nom complet</span>
@@ -32,13 +32,6 @@
         <span>Departement</span>
         <select name="departement" [(ngModel)]="form.departement">
           <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
-        </select>
-      </label>
-      <label class="field">
-        <span>Statut</span>
-        <select name="statut" [(ngModel)]="form.statut">
-          <option value="Actif">Actif</option>
-          <option value="Suspendu">Suspendu</option>
         </select>
       </label>
       <div class="form-actions">
@@ -63,7 +56,7 @@
       <table>
         <thead>
           <tr>
-            <th>Matricule</th>
+            <th>Prenom</th>
             <th>Nom</th>
             <th>Email</th>
             <th>Role</th>
@@ -74,7 +67,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let employe of employesFiltres">
-            <td class="muted">{{ employe.matricule }}</td>
+            <td>{{ employe.prenom }}</td>
             <td><strong>{{ employe.nom }}</strong></td>
             <td>{{ employe.email }}</td>
             <td>{{ employe.role }}</td>
