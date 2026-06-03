@@ -2,6 +2,8 @@ package com.example.backend.controller.admin;
 
 import com.example.backend.dto.admin.AdminDepartementRequest;
 import com.example.backend.dto.admin.AdminDepartementResponse;
+import com.example.backend.dto.admin.AdminCreateEmployeRequest;
+import com.example.backend.dto.admin.AdminEmployeResponse;
 import com.example.backend.dto.admin.AdminJourFerieRequest;
 import com.example.backend.dto.admin.AdminJourFerieResponse;
 import com.example.backend.dto.admin.AdminPageResponse;
@@ -9,6 +11,7 @@ import com.example.backend.dto.admin.AdminProfilResponse;
 import com.example.backend.dto.admin.AdminResponsableResponse;
 import com.example.backend.service.admin.AdminService;
 import com.example.backend.service.admin.AdminServiceDepartement;
+import com.example.backend.service.admin.AdminServiceEmploye;
 import com.example.backend.service.admin.AdminServiceJourFerie;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,15 +36,18 @@ public class AdminController {
     private final AdminService adminService;
     private final AdminServiceJourFerie adminServiceJourFerie;
     private final AdminServiceDepartement adminServiceDepartement;
+    private final AdminServiceEmploye adminServiceEmploye;
 
     public AdminController(
             AdminService adminService,
             AdminServiceJourFerie adminServiceJourFerie,
-            AdminServiceDepartement adminServiceDepartement
+            AdminServiceDepartement adminServiceDepartement,
+            AdminServiceEmploye adminServiceEmploye
     ) {
         this.adminService = adminService;
         this.adminServiceJourFerie = adminServiceJourFerie;
         this.adminServiceDepartement = adminServiceDepartement;
+        this.adminServiceEmploye = adminServiceEmploye;
     }
 
     @GetMapping("/dashboard")
@@ -123,5 +129,10 @@ public class AdminController {
     @GetMapping("/employes")
     public ResponseEntity<Map<String, String>> employes() {
         return ResponseEntity.ok(Map.of("message", "admin employes accessed"));
+    }
+
+    @PostMapping("/employes")
+    public ResponseEntity<AdminEmployeResponse> createEmploye(@RequestBody AdminCreateEmployeRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(adminServiceEmploye.createEmploye(request));
     }
 }
