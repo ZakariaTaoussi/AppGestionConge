@@ -8,6 +8,7 @@ public record AdminEmployeResponse(
         String prenom,
         String email,
         Role role,
-        String departement
+        String departement,
+        String setupToken
 ) {
 }

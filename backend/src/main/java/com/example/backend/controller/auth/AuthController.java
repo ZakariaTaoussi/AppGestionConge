@@ -2,7 +2,9 @@ package com.example.backend.controller.auth;
 
 import com.example.backend.dto.auth.LoginRequest;
 import com.example.backend.dto.auth.LoginResponse;
+import com.example.backend.dto.auth.SetupPasswordRequest;
 import com.example.backend.service.auth.AuthService;
+import com.example.backend.service.auth.PasswordSetupService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -19,15 +21,18 @@ import java.time.Duration;
 public class AuthController {
 
     private final AuthService authService;
+    private final PasswordSetupService passwordSetupService;
     private final String cookieName;
     private final boolean cookieSecure;
 
     public AuthController(
             AuthService authService,
+            PasswordSetupService passwordSetupService,
             @Value("${app.jwt.cookie-name}") String cookieName,
             @Value("${app.jwt.cookie-secure}") boolean cookieSecure
     ) {
         this.authService = authService;
+        this.passwordSetupService = passwordSetupService;
         this.cookieName = cookieName;
         this.cookieSecure = cookieSecure;
     }
@@ -40,6 +45,12 @@ public class AuthController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body(result.response());
+    }
+
+    @PostMapping("/setup-password")
+    public ResponseEntity<Void> setupPassword(@RequestBody SetupPasswordRequest request) {
+        passwordSetupService.setupPassword(request);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/logout")

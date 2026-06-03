@@ -28,9 +28,11 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        // Allow only login/logout public endpoints under /api/auth
+        // Allow public endpoints under /api/auth
         if (path.startsWith("/api/auth/login") || path.startsWith("/api/auth/logout")
-                || path.startsWith("/auth/login") || path.startsWith("/auth/logout")) {
+                || path.startsWith("/api/auth/setup-password")
+                || path.startsWith("/auth/login") || path.startsWith("/auth/logout")
+                || path.startsWith("/auth/setup-password")) {
             return true;
         }
 

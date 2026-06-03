@@ -10,6 +10,8 @@ import com.example.backend.exception.departement.DepartementNonTrouveException;
 import com.example.backend.exception.utilisateur.UtilisateurDejaExisteException;
 import com.example.backend.repository.DepartementRepository;
 import com.example.backend.repository.UtilisateurRepository;
+import com.example.backend.service.auth.PasswordSetupService;
+import com.example.backend.service.mail.MailService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,13 +20,19 @@ public class AdminServiceEmploye {
 
     private final UtilisateurRepository utilisateurRepository;
     private final DepartementRepository departementRepository;
+    private final PasswordSetupService passwordSetupService;
+    private final MailService mailService;
 
     public AdminServiceEmploye(
             UtilisateurRepository utilisateurRepository,
-            DepartementRepository departementRepository
+            DepartementRepository departementRepository,
+            PasswordSetupService passwordSetupService,
+            MailService mailService
     ) {
         this.utilisateurRepository = utilisateurRepository;
         this.departementRepository = departementRepository;
+        this.passwordSetupService = passwordSetupService;
+        this.mailService = mailService;
     }
 
     @Transactional
@@ -41,7 +49,11 @@ public class AdminServiceEmploye {
                 });
 
         Utilisateur utilisateur = new Utilisateur(nom, prenom, email, null, role, departement);
-        return toResponse(utilisateurRepository.save(utilisateur));
+        Utilisateur savedUtilisateur = utilisateurRepository.save(utilisateur);
+        String setupToken = passwordSetupService.createTokenFor(savedUtilisateur);
+        mailService.sendPasswordSetupEmail(savedUtilisateur, setupToken);
+
+        return toResponse(savedUtilisateur, setupToken);
     }
 
     private Departement getDepartement(Long departementId) {
@@ -67,7 +79,7 @@ public class AdminServiceEmploye {
         return role;
     }
 
-    private AdminEmployeResponse toResponse(Utilisateur utilisateur) {
+    private AdminEmployeResponse toResponse(Utilisateur utilisateur, String setupToken) {
         Departement departement = utilisateur.getDepartement();
 
         return new AdminEmployeResponse(
@@ -76,7 +88,8 @@ public class AdminServiceEmploye {
                 utilisateur.getPrenom(),
                 utilisateur.getEmail().getValue(),
                 utilisateur.getRole(),
-                departement != null ? departement.getNom() : null
+                departement != null ? departement.getNom() : null,
+                setupToken
         );
     }
 }

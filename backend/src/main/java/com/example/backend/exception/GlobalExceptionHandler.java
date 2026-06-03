@@ -1,12 +1,16 @@
 package com.example.backend.exception;
 
 import com.example.backend.exception.auth.IdentifiantsInvalidesException;
+import com.example.backend.exception.auth.PasswordSetupTokenDejaUtiliseException;
+import com.example.backend.exception.auth.PasswordSetupTokenExpireException;
+import com.example.backend.exception.auth.PasswordSetupTokenInvalideException;
 import com.example.backend.exception.departement.DepartementDejaExisteException;
 import com.example.backend.exception.departement.DepartementNonTrouveException;
 import com.example.backend.exception.departement.DepartementUtiliseException;
 import com.example.backend.exception.departement.ResponsableDejaAffecteException;
 import com.example.backend.exception.departement.ResponsableDepartementInvalideException;
 import com.example.backend.exception.jourferie.JourFerieNonTrouveException;
+import com.example.backend.exception.mail.EmailEnvoiException;
 import com.example.backend.exception.utilisateur.UtilisateurDejaExisteException;
 import com.example.backend.exception.utilisateur.UtilisateurNonTrouveException;
 import org.springframework.http.HttpStatus;
@@ -74,6 +78,20 @@ public class GlobalExceptionHandler {
             IdentifiantsInvalidesException exception
     ) {
         return buildResponse(HttpStatus.UNAUTHORIZED, exception.getMessage());
+    }
+
+    @ExceptionHandler({
+            PasswordSetupTokenInvalideException.class,
+            PasswordSetupTokenExpireException.class,
+            PasswordSetupTokenDejaUtiliseException.class
+    })
+    public ResponseEntity<ErrorResponse> handlePasswordSetupTokenException(RuntimeException exception) {
+        return buildResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(EmailEnvoiException.class)
+    public ResponseEntity<ErrorResponse> handleEmailEnvoiException(EmailEnvoiException exception) {
+        return buildResponse(HttpStatus.SERVICE_UNAVAILABLE, exception.getMessage());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
