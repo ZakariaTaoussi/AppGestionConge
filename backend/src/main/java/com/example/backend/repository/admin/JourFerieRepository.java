@@ -1,4 +1,4 @@
-package com.example.backend.repository;
+package com.example.backend.repository.admin;
 
 import com.example.backend.domain.JourFerie;
 import org.springframework.data.jpa.repository.JpaRepository;

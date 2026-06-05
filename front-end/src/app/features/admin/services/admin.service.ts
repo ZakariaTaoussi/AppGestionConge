@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AdminDepartement, AdminDepartementRequest, AdminResponsable } from '../models/admin-departement.model';
+import { AdminCreateEmployeRequest, AdminEmploye, AdminUpdateEmployeRequest } from '../models/admin-employe.model';
 import { AdminJourFerie, AdminJourFerieRequest, AdminPage } from '../models/admin-jour-ferie.model';
 import { AdminProfil } from '../models/admin-profil.model';
 
@@ -52,5 +53,23 @@ export class AdminService {
 
   deleteDepartement(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/admin/departements/${id}`);
+  }
+
+  getEmployes(page: number, size: number, search = ''): Observable<AdminPage<AdminEmploye>> {
+    return this.http.get<AdminPage<AdminEmploye>>(`${environment.apiUrl}/admin/employes`, {
+      params: { page, size, search },
+    });
+  }
+
+  createEmploye(request: AdminCreateEmployeRequest): Observable<AdminEmploye> {
+    return this.http.post<AdminEmploye>(`${environment.apiUrl}/admin/employes`, request);
+  }
+
+  updateEmploye(id: number, request: AdminUpdateEmployeRequest): Observable<AdminEmploye> {
+    return this.http.put<AdminEmploye>(`${environment.apiUrl}/admin/employes/${id}`, request);
+  }
+
+  deleteEmploye(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/admin/employes/${id}`);
   }
 }

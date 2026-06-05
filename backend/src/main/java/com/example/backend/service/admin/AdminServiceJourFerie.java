@@ -5,7 +5,7 @@ import com.example.backend.dto.admin.AdminJourFerieRequest;
 import com.example.backend.dto.admin.AdminJourFerieResponse;
 import com.example.backend.dto.admin.AdminPageResponse;
 import com.example.backend.exception.jourferie.JourFerieNonTrouveException;
-import com.example.backend.repository.JourFerieRepository;
+import com.example.backend.repository.admin.JourFerieRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

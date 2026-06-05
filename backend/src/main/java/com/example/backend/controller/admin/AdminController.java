@@ -9,6 +9,7 @@ import com.example.backend.dto.admin.AdminJourFerieResponse;
 import com.example.backend.dto.admin.AdminPageResponse;
 import com.example.backend.dto.admin.AdminProfilResponse;
 import com.example.backend.dto.admin.AdminResponsableResponse;
+import com.example.backend.dto.admin.AdminUpdateEmployeRequest;
 import com.example.backend.service.admin.AdminService;
 import com.example.backend.service.admin.AdminServiceDepartement;
 import com.example.backend.service.admin.AdminServiceEmploye;
@@ -127,12 +128,30 @@ public class AdminController {
     }
 
     @GetMapping("/employes")
-    public ResponseEntity<Map<String, String>> employes() {
-        return ResponseEntity.ok(Map.of("message", "admin employes accessed"));
+    public ResponseEntity<AdminPageResponse<AdminEmployeResponse>> getEmployes(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(required = false) String search
+    ) {
+        return ResponseEntity.ok(adminServiceEmploye.getEmployes(page, size, search));
     }
 
     @PostMapping("/employes")
     public ResponseEntity<AdminEmployeResponse> createEmploye(@RequestBody AdminCreateEmployeRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(adminServiceEmploye.createEmploye(request));
+    }
+
+    @PutMapping("/employes/{id}")
+    public ResponseEntity<AdminEmployeResponse> updateEmploye(
+            @PathVariable Long id,
+            @RequestBody AdminUpdateEmployeRequest request
+    ) {
+        return ResponseEntity.ok(adminServiceEmploye.updateEmploye(id, request));
+    }
+
+    @DeleteMapping("/employes/{id}")
+    public ResponseEntity<Void> deleteEmploye(@PathVariable Long id) {
+        adminServiceEmploye.deleteEmploye(id);
+        return ResponseEntity.noContent().build();
     }
 }

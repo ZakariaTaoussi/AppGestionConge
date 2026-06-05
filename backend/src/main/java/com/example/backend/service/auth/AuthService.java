@@ -6,7 +6,7 @@ import com.example.backend.dto.auth.LoginRequest;
 import com.example.backend.dto.auth.LoginResponse;
 import com.example.backend.exception.auth.IdentifiantsInvalidesException;
 import com.example.backend.mapper.utilisateur.UtilisateurMapper;
-import com.example.backend.repository.UtilisateurRepository;
+import com.example.backend.repository.utilisateur.UtilisateurRepository;
 import com.example.backend.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

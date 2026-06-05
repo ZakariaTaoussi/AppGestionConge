@@ -9,3 +9,8 @@ export interface LoginRequest {
 export interface LoginResponse {
   utilisateur: Utilisateur;
 }
+
+export interface SetupPasswordRequest {
+  token: string;
+  password: string;
+}

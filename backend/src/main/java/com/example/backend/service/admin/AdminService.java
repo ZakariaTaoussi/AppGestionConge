@@ -4,7 +4,7 @@ import com.example.backend.domain.Departement;
 import com.example.backend.domain.Utilisateur;
 import com.example.backend.dto.admin.AdminProfilResponse;
 import com.example.backend.exception.utilisateur.UtilisateurNonTrouveException;
-import com.example.backend.repository.UtilisateurRepository;
+import com.example.backend.repository.utilisateur.UtilisateurRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

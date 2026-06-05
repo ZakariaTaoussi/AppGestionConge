@@ -8,14 +8,14 @@
   </header>
 
   <section class="form-card">
-    <h2>{{ editingId ? 'Modifier un compte' : 'Creer un compte' }}</h2>
+    <h2>{{ editingId() ? 'Modifier un compte' : 'Creer un compte' }}</h2>
     <form class="form-grid" (ngSubmit)="enregistrer()">
       <label class="field">
         <span>Prenom</span>
         <input name="prenom" [(ngModel)]="form.prenom" placeholder="Prenom de l'employe" required />
       </label>
       <label class="field">
-        <span>Nom complet</span>
+        <span>Nom</span>
         <input name="nom" [(ngModel)]="form.nom" placeholder="Nom de l'employe" required />
       </label>
       <label class="field">
@@ -25,30 +25,41 @@
       <label class="field">
         <span>Role</span>
         <select name="role" [(ngModel)]="form.role">
-          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+          <option *ngFor="let role of roles" [value]="role.value">{{ role.label }}</option>
         </select>
       </label>
       <label class="field">
         <span>Departement</span>
-        <select name="departement" [(ngModel)]="form.departement">
-          <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
+        <select name="departement" [(ngModel)]="form.departementId">
+          <option [ngValue]="0" disabled>Selectionner un departement</option>
+          <option *ngFor="let departement of departements()" [ngValue]="departement.id">{{ departement.nom }}</option>
         </select>
       </label>
       <div class="form-actions">
-        <button type="button" class="btn-secondary" (click)="reinitialiser()" *ngIf="editingId">Annuler</button>
-        <button type="submit" class="btn-primary">{{ editingId ? 'Enregistrer' : 'Creer' }}</button>
+        <button type="button" class="btn-secondary" (click)="reinitialiser()">Annuler</button>
+        <button type="submit" class="btn-primary" [disabled]="isSaving() || departements().length === 0">
+          {{ isSaving() ? 'Enregistrement...' : editingId() ? 'Modifier' : 'Creer' }}
+        </button>
       </div>
     </form>
   </section>
+
+  <p class="success-message" *ngIf="successMessage()">{{ successMessage() }}</p>
+  <p class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</p>
 
   <section class="table-card">
     <div class="toolbar">
       <div>
         <h2>Liste des employes</h2>
-        <p>{{ employesFiltres.length }} compte(s) trouve(s)</p>
+        <p>{{ totalElements() }} compte(s) trouve(s)</p>
       </div>
       <label class="search">
-        <input type="search" [(ngModel)]="searchTerm" placeholder="Recherche par nom" />
+        <input
+          type="search"
+          [ngModel]="searchTerm()"
+          (ngModelChange)="onSearchChange($event)"
+          placeholder="Recherche par nom"
+        />
       </label>
     </div>
 
@@ -61,32 +72,42 @@
             <th>Email</th>
             <th>Role</th>
             <th>Departement</th>
-            <th>Statut</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let employe of employesFiltres">
+          <tr *ngIf="isLoading()">
+            <td colspan="6" class="empty-cell">Chargement des employes...</td>
+          </tr>
+          <tr *ngFor="let employe of employes()" [class.row-editing]="isEditing(employe)">
             <td>{{ employe.prenom }}</td>
             <td><strong>{{ employe.nom }}</strong></td>
             <td>{{ employe.email }}</td>
-            <td>{{ employe.role }}</td>
-            <td>{{ employe.departement }}</td>
-            <td><span class="badge" [class.suspended]="employe.statut === 'Suspendu'">{{ employe.statut }}</span></td>
+            <td>{{ roleLabel(employe.role) }}</td>
+            <td>{{ employe.departement ?? '-' }}</td>
             <td class="actions">
-              <button type="button" class="icon-btn edit" title="Modifier" (click)="modifier(employe)">
+              <button type="button" class="icon-btn edit" title="Modifier" (click)="modifier(employe)" [disabled]="isSaving() || deletingId() === employe.id">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
               </button>
-              <button type="button" class="icon-btn delete" title="Supprimer" (click)="supprimer(employe)">
+              <button type="button" class="icon-btn delete" title="Supprimer" (click)="supprimer(employe)" [disabled]="isSaving() || deletingId() === employe.id">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
               </button>
             </td>
           </tr>
-          <tr *ngIf="employesFiltres.length === 0">
-            <td colspan="7" class="empty-cell">Aucun compte ne correspond a la recherche.</td>
+          <tr *ngIf="!isLoading() && employes().length === 0">
+            <td colspan="6" class="empty-cell">Aucun compte ne correspond a la recherche.</td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="pagination" *ngIf="totalPages() > 1">
+      <button type="button" class="btn-secondary" [disabled]="currentPage() === 0 || isLoading()" (click)="pagePrecedente()">
+        Precedent
+      </button>
+      <span>Page {{ currentPage() + 1 }} / {{ totalPages() }}</span>
+      <button type="button" class="btn-secondary" [disabled]="currentPage() + 1 >= totalPages() || isLoading()" (click)="pageSuivante()">
+        Suivant
+      </button>
     </div>
   </section>
 </div>

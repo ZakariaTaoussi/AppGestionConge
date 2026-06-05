@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface PasswordSetupTokenRepository extends JpaRepository<PasswordSetupToken, Long> {
 
     Optional<PasswordSetupToken> findByToken(String token);
+
+    void deleteByUtilisateurId(Long utilisateurId);
 }

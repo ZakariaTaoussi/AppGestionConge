@@ -7,7 +7,7 @@ import com.example.backend.dto.utilisateur.CreateUtilisateurRequest;
 import com.example.backend.dto.utilisateur.UtilisateurResponse;
 import com.example.backend.exception.utilisateur.UtilisateurDejaExisteException;
 import com.example.backend.mapper.utilisateur.UtilisateurMapper;
-import com.example.backend.repository.UtilisateurRepository;
+import com.example.backend.repository.utilisateur.UtilisateurRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

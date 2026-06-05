@@ -13,6 +13,7 @@ import com.example.backend.exception.jourferie.JourFerieNonTrouveException;
 import com.example.backend.exception.mail.EmailEnvoiException;
 import com.example.backend.exception.utilisateur.UtilisateurDejaExisteException;
 import com.example.backend.exception.utilisateur.UtilisateurNonTrouveException;
+import com.example.backend.exception.utilisateur.UtilisateurUtiliseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -69,6 +70,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UtilisateurDejaExisteException.class)
     public ResponseEntity<ErrorResponse> handleUtilisateurDejaExisteException(
             UtilisateurDejaExisteException exception
+    ) {
+        return buildResponse(HttpStatus.CONFLICT, exception.getMessage());
+    }
+
+    @ExceptionHandler(UtilisateurUtiliseException.class)
+    public ResponseEntity<ErrorResponse> handleUtilisateurUtiliseException(
+            UtilisateurUtiliseException exception
     ) {
         return buildResponse(HttpStatus.CONFLICT, exception.getMessage());
     }

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, catchError, finalize, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Role } from '../enums/role.enum';
-import { LoginRequest, LoginResponse } from '../models/auth.model';
+import { LoginRequest, LoginResponse, SetupPasswordRequest } from '../models/auth.model';
 import { Utilisateur } from '../models/utilisateur.model';
 
 export interface SessionUserView {
@@ -44,6 +44,10 @@ export class AuthService {
       catchError(() => of(void 0)),
       finalize(() => this.clearUser()),
     );
+  }
+
+  setupPassword(request: SetupPasswordRequest): Observable<void> {
+    return this.http.post<void>(`${environment.apiUrl}/auth/setup-password`, request);
   }
 
   logoutAndRedirect(): void {

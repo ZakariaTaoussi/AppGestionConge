@@ -8,6 +8,11 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES),
   },
+  {
+    path: 'setup-password',
+    loadComponent: () =>
+      import('./features/auth/setup-password/setup-password.component').then(m => m.SetupPasswordComponent),
+  },
 
 
   {
