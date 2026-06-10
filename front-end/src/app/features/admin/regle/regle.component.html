@@ -13,23 +13,26 @@
       <form class="form-grid" (ngSubmit)="validerRegle()">
         <label class="field">
           <span>Jours ajoutes chaque mois</span>
-          <input type="number" min="0" step="0.5" name="joursParMois" [(ngModel)]="joursParMois" />
+          <input type="number" min="0.5" step="0.5" name="jourAjouteParMois" [(ngModel)]="form.jourAjouteParMois" />
         </label>
         <label class="field">
           <span>Preavis requis pour demander un conge</span>
-          <input type="number" min="0" name="preavisConge" [(ngModel)]="preavisConge" />
+          <input type="number" min="0" name="preavisJours" [(ngModel)]="form.preavisJours" />
         </label>
         <label class="field">
           <span>Maximum de jours consecutifs</span>
-          <input type="number" min="1" name="maxJoursConsecutifs" [(ngModel)]="maxJoursConsecutifs" />
+          <input type="number" min="1" name="maxJoursConsecutifs" [(ngModel)]="form.maxJoursConsecutifs" />
         </label>
         <label class="field">
           <span>Report autorise vers l'annee suivante</span>
-          <input type="number" min="0" name="reportAnnuel" [(ngModel)]="reportAnnuel" />
+          <input type="number" min="0" name="reportMaxJours" [(ngModel)]="form.reportMaxJours" />
         </label>
+        <p class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</p>
         <div class="form-actions">
-          <span class="success-message" *ngIf="regleValidee">Regle validee</span>
-          <button type="submit" class="btn-primary">Valider</button>
+          <span class="success-message" *ngIf="successMessage()">{{ successMessage() }}</span>
+          <button type="submit" class="btn-primary" [disabled]="isLoading() || isSaving()">
+            {{ isSaving() ? 'Validation...' : 'Valider' }}
+          </button>
         </div>
       </form>
     </article>
@@ -37,8 +40,8 @@
     <article class="summary-card">
       <span>Total annuel</span>
       <strong>{{ totalAnnuel }} j</strong>
-      <p>Avec {{ joursParMois }} jour(s) par mois, un employe obtient {{ totalAnnuel }} jours sur 12 mois.</p>
-      <p>Une demande de conge doit etre soumise {{ preavisConge }} jours avant la date de debut.</p>
+      <p>Avec {{ form.jourAjouteParMois }} jour(s) par mois, un employe obtient {{ totalAnnuel }} jours sur 12 mois.</p>
+      <p>Une demande de conge doit etre soumise {{ form.preavisJours }} jours avant la date de debut.</p>
     </article>
   </section>
 

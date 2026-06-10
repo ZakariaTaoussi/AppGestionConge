@@ -1,71 +1,50 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 export type NotificationKind = 'info' | 'success' | 'warning';
 
-export type NotificationItem = {
+export interface NotificationItem {
   id: number;
   title: string;
   date: string;
   kind: NotificationKind;
   read: boolean;
-};
+}
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class NotificationService {
-  private nextId = 4;
-  private readonly items: NotificationItem[] = [
+  private readonly notifications = signal<NotificationItem[]>([
     {
       id: 1,
-      title: 'Votre demande de congé du 04/05 au 15/05 est en attente de validation.',
-      date: '20 avril 2026',
+      title: 'Bienvenue dans votre espace SOPHATEL.',
+      date: 'Aujourd hui',
       kind: 'info',
       read: false,
     },
-    {
-      id: 2,
-      title: 'Votre demande de rattrapage a été validée par votre responsable.',
-      date: '22 avril 2026',
-      kind: 'success',
-      read: false,
-    },
-    {
-      id: 3,
-      title: 'Votre demande DEM-005 a été refusée.',
-      date: '26 avril 2026',
-      kind: 'warning',
-      read: false,
-    },
-  ];
+  ]);
 
   getNotifications(): NotificationItem[] {
-    return this.items;
+    return this.notifications();
   }
 
   getUnreadCount(): number {
-    return this.items.filter(item => !item.read).length;
-  }
-
-  add(title: string, kind: NotificationKind = 'info'): void {
-    this.items.unshift({
-      id: this.nextId++,
-      title,
-      date: this.formatToday(),
-      kind,
-      read: false,
-    });
+    return this.notifications().filter(notification => !notification.read).length;
   }
 
   markAllAsRead(): void {
-    this.items.forEach(item => item.read = true);
+    this.notifications.update(notifications =>
+      notifications.map(notification => ({ ...notification, read: true })),
+    );
   }
 
-  private formatToday(): string {
-    return new Intl.DateTimeFormat('fr-FR', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    }).format(new Date());
+  add(title: string, kind: NotificationKind = 'info'): void {
+    const notification: NotificationItem = {
+      id: Date.now(),
+      title,
+      date: 'A l instant',
+      kind,
+      read: false,
+    };
+
+    this.notifications.update(notifications => [notification, ...notifications]);
   }
 }

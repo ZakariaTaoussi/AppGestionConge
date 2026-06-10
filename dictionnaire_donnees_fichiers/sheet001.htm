@@ -1,0 +1,999 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=ProgId content=Excel.Sheet>
+<meta name=Generator content="Microsoft Excel 15">
+<link id=Main-File rel=Main-File href="../dictionnaire_donnees.xls">
+<link rel=File-List href=filelist.xml>
+<link rel=Stylesheet href=stylesheet.css>
+<style>
+<!--td
+	{padding-bottom:6px;
+	padding-top:6px;}
+th
+	{padding-bottom:6px;
+	padding-top:6px;}
+table
+	{mso-displayed-decimal-separator:"\.";
+	mso-displayed-thousand-separator:"\,";}
+@page
+	{margin:.98in .79in .98in .79in;
+	mso-header-margin:.49in;
+	mso-footer-margin:.49in;}
+-->
+</style>
+<![if !supportTabStrip]><script language="JavaScript">
+<!--
+function fnUpdateTabs()
+ {
+  if (parent.window.g_iIEVer>=4) {
+   if (parent.document.readyState=="complete"
+    && parent.frames['frTabs'].document.readyState=="complete")
+   parent.fnSetActiveSheet(0);
+  else
+   window.setTimeout("fnUpdateTabs();",150);
+ }
+}
+
+if (window.name!="frSheet")
+ window.location.replace("../dictionnaire_donnees.xls");
+else
+ fnUpdateTabs();
+//-->
+</script>
+<![endif]>
+</head>
+
+<body link="#467886" vlink="#96607D" class=xl65>
+
+<table border=0 cellpadding=0 cellspacing=0 width=1164 style='border-collapse:
+ collapse;table-layout:fixed;width:873pt'>
+ <col class=xl65 width=198 style='mso-width-source:userset;mso-width-alt:7241;
+ width:149pt'>
+ <col class=xl65 width=111 style='mso-width-source:userset;mso-width-alt:4059;
+ width:83pt'>
+ <col class=xl65 width=80 style='width:60pt'>
+ <col class=xl65 width=135 style='mso-width-source:userset;mso-width-alt:4937;
+ width:101pt'>
+ <col class=xl65 width=320 span=2 style='mso-width-source:userset;mso-width-alt:
+ 11702;width:240pt'>
+ <tr height=24 style='height:18.0pt'>
+  <td colspan=6 height=24 class=xl66 width=1164 style='border-right:1.0pt solid black;
+  height:18.0pt;width:873pt'>Dictionnaire de donnees - Gestion des conges
+  SOPHATEL</td>
+ </tr>
+ <tr height=24 style='height:18.0pt'>
+  <td colspan=6 height=24 class=xl66 width=1164 style='border-right:1.0pt solid black;
+  height:18.0pt;width:873pt'>Module Utilisateur</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Table:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>utilisateur</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Colonne</td>
+  <td class=xl70 width=111 style='border-top:none;border-left:none;width:83pt'>Optionnelle
+  O/N</td>
+  <td class=xl70 width=80 style='border-top:none;border-left:none;width:60pt'>Type</td>
+  <td class=xl70 width=135 style='border-top:none;border-left:none;width:101pt'>Longueur
+  / Precision</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Description</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Exemples
+  ou Domaine de valeurs</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Identifiant
+  unique de l'utilisateur.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>1,
+  2, 3</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>nom</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>VARCHAR</td>
+  <td class=xl71 align=right width=135 style='border-top:none;border-left:none;
+  width:101pt'>100</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Nom
+  de famille de l'utilisateur.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Benali</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>prenom</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>VARCHAR</td>
+  <td class=xl71 align=right width=135 style='border-top:none;border-left:none;
+  width:101pt'>100</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Prenom
+  de l'utilisateur.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Yassine</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>email</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>VARCHAR</td>
+  <td class=xl71 align=right width=135 style='border-top:none;border-left:none;
+  width:101pt'>150</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Email
+  utilise pour l'authentification.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>yassine.benali@sophatel.com</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>password</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>VARCHAR</td>
+  <td class=xl71 align=right width=135 style='border-top:none;border-left:none;
+  width:101pt'>255</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Mot
+  de passe chiffre de l'utilisateur.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Hash
+  BCrypt</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>role</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>ENUM</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Role
+  applicatif de l'utilisateur.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>DG,
+  RH, EMPLOYE, RESPONSABLE</td>
+ </tr>
+ <tr height=24 style='height:18.0pt'>
+  <td colspan=6 height=24 class=xl66 width=1164 style='border-right:1.0pt solid black;
+  height:18.0pt;width:873pt'>Module Administration</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Table:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>admin</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Colonne</td>
+  <td class=xl70 width=111 style='border-top:none;border-left:none;width:83pt'>Optionnelle
+  O/N</td>
+  <td class=xl70 width=80 style='border-top:none;border-left:none;width:60pt'>Type</td>
+  <td class=xl70 width=135 style='border-top:none;border-left:none;width:101pt'>Longueur
+  / Precision</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Description</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Exemples
+  ou Domaine de valeurs</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Identifiant
+  unique de l'administrateur.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>1,
+  2, 3</td>
+ </tr>
+ <tr height=41 style='height:30.75pt'>
+  <td height=41 class=xl71 width=198 style='height:30.75pt;border-top:none;
+  width:149pt'>utilisateur_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Reference
+  vers le compte utilisateur associe a l'administrateur.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  utilisateur.id</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Table:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>departement</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Colonne</td>
+  <td class=xl70 width=111 style='border-top:none;border-left:none;width:83pt'>Optionnelle
+  O/N</td>
+  <td class=xl70 width=80 style='border-top:none;border-left:none;width:60pt'>Type</td>
+  <td class=xl70 width=135 style='border-top:none;border-left:none;width:101pt'>Longueur
+  / Precision</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Description</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Exemples
+  ou Domaine de valeurs</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Identifiant
+  unique du departement.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>1,
+  2, 3</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>nom</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>VARCHAR</td>
+  <td class=xl71 align=right width=135 style='border-top:none;border-left:none;
+  width:101pt'>100</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Nom
+  du departement.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Informatique,
+  RH, Direction</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Table:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>departement_responsable</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Colonne</td>
+  <td class=xl70 width=111 style='border-top:none;border-left:none;width:83pt'>Optionnelle
+  O/N</td>
+  <td class=xl70 width=80 style='border-top:none;border-left:none;width:60pt'>Type</td>
+  <td class=xl70 width=135 style='border-top:none;border-left:none;width:101pt'>Longueur
+  / Precision</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Description</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Exemples
+  ou Domaine de valeurs</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>departement_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Departement
+  concerne.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  departement.id</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>employe_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Employe
+  responsable du departement.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  employe.id</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Table:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>agenda</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Colonne</td>
+  <td class=xl70 width=111 style='border-top:none;border-left:none;width:83pt'>Optionnelle
+  O/N</td>
+  <td class=xl70 width=80 style='border-top:none;border-left:none;width:60pt'>Type</td>
+  <td class=xl70 width=135 style='border-top:none;border-left:none;width:101pt'>Longueur
+  / Precision</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Description</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Exemples
+  ou Domaine de valeurs</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Identifiant
+  unique de l'agenda.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>1,
+  2, 3</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>annee</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>INTEGER</td>
+  <td class=xl71 align=right width=135 style='border-top:none;border-left:none;
+  width:101pt'>4</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Annee
+  de l'agenda.</td>
+  <td class=xl71 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>2026</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Table:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>jour_calendrier</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Colonne</td>
+  <td class=xl70 width=111 style='border-top:none;border-left:none;width:83pt'>Optionnelle
+  O/N</td>
+  <td class=xl70 width=80 style='border-top:none;border-left:none;width:60pt'>Type</td>
+  <td class=xl70 width=135 style='border-top:none;border-left:none;width:101pt'>Longueur
+  / Precision</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Description</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Exemples
+  ou Domaine de valeurs</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Identifiant
+  unique du jour calendrier.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>1,
+  2, 3</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>agenda_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Agenda
+  auquel appartient le jour.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  agenda.id</td>
+ </tr>
+ <tr height=41 style='height:30.75pt'>
+  <td height=41 class=xl71 width=198 style='height:30.75pt;border-top:none;
+  width:149pt'>jour_ferie_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>O</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Jour
+  ferie correspondant, si le jour calendrier est ferie.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  jour_ferie.id</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>date</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>DATE</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  du jour calendrier.</td>
+  <td class=xl75 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>1/1/2026</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Table:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>jour_ferie</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Colonne</td>
+  <td class=xl70 width=111 style='border-top:none;border-left:none;width:83pt'>Optionnelle
+  O/N</td>
+  <td class=xl70 width=80 style='border-top:none;border-left:none;width:60pt'>Type</td>
+  <td class=xl70 width=135 style='border-top:none;border-left:none;width:101pt'>Longueur
+  / Precision</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Description</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Exemples
+  ou Domaine de valeurs</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Identifiant
+  unique du jour ferie.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>1,
+  2, 3</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>nom</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>VARCHAR</td>
+  <td class=xl71 align=right width=135 style='border-top:none;border-left:none;
+  width:101pt'>100</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Nom
+  du jour ferie.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Aid,
+  Nouvel an</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>date_debut</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>DATE</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  de debut du jour ou de la periode feriee.</td>
+  <td class=xl75 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>1/1/2026</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>date_fin</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>DATE</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  de fin du jour ou de la periode feriee.</td>
+  <td class=xl75 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>1/1/2026</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>description</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>O</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>VARCHAR</td>
+  <td class=xl71 align=right width=135 style='border-top:none;border-left:none;
+  width:101pt'>255</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Description
+  ou information complementaire.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Jour
+  ferie national</td>
+ </tr>
+ <tr height=24 style='height:18.0pt'>
+  <td colspan=6 height=24 class=xl66 width=1164 style='border-right:1.0pt solid black;
+  height:18.0pt;width:873pt'>Module Employe</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Table:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>employe</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Colonne</td>
+  <td class=xl70 width=111 style='border-top:none;border-left:none;width:83pt'>Optionnelle
+  O/N</td>
+  <td class=xl70 width=80 style='border-top:none;border-left:none;width:60pt'>Type</td>
+  <td class=xl70 width=135 style='border-top:none;border-left:none;width:101pt'>Longueur
+  / Precision</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Description</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Exemples
+  ou Domaine de valeurs</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Identifiant
+  unique de l'employe.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>1,
+  2, 3</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>utilisateur_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Compte
+  utilisateur associe a l'employe.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  utilisateur.id</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>departement_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Departement
+  d'affectation de l'employe.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  departement.id</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>created_at</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>TIMESTAMP</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  et heure de creation de l'employe.</td>
+  <td class=xl76 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>6/8/2026 10:30</td>
+ </tr>
+ <tr height=41 style='height:30.75pt'>
+  <td height=41 class=xl71 width=198 style='height:30.75pt;border-top:none;
+  width:149pt'>updated_at</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>O</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>TIMESTAMP</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  et heure de derniere modification de l'employe.</td>
+  <td class=xl76 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>6/8/2026 12:15</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Table:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>solde_conge</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Colonne</td>
+  <td class=xl70 width=111 style='border-top:none;border-left:none;width:83pt'>Optionnelle
+  O/N</td>
+  <td class=xl70 width=80 style='border-top:none;border-left:none;width:60pt'>Type</td>
+  <td class=xl70 width=135 style='border-top:none;border-left:none;width:101pt'>Longueur
+  / Precision</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Description</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Exemples
+  ou Domaine de valeurs</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Identifiant
+  unique du solde de conge.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>1,
+  2, 3</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>employe_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Employe
+  concerne par le solde.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  employe.id</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>annee</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>INTEGER</td>
+  <td class=xl71 align=right width=135 style='border-top:none;border-left:none;
+  width:101pt'>4</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Annee
+  du solde de conge.</td>
+  <td class=xl71 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>2026</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>solde_actuel</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>DECIMAL</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>5,2</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Nombre
+  de jours de conge restants.</td>
+  <td class=xl71 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>12.5</td>
+ </tr>
+ <tr height=41 style='height:30.75pt'>
+  <td height=41 class=xl71 width=198 style='height:30.75pt;border-top:none;
+  width:149pt'>solde_total</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>DECIMAL</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>5,2</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Nombre
+  total de jours de conge attribues pour l'annee.</td>
+  <td class=xl71 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>18</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>updated_at</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>O</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>TIMESTAMP</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  et heure de derniere modification du solde.</td>
+  <td class=xl76 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>6/8/2026 12:15</td>
+ </tr>
+ <tr height=24 style='height:18.0pt'>
+  <td colspan=6 height=24 class=xl66 width=1164 style='border-right:1.0pt solid black;
+  height:18.0pt;width:873pt'>Module Demande</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Table:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>demande_conge</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Colonne</td>
+  <td class=xl70 width=111 style='border-top:none;border-left:none;width:83pt'>Optionnelle
+  O/N</td>
+  <td class=xl70 width=80 style='border-top:none;border-left:none;width:60pt'>Type</td>
+  <td class=xl70 width=135 style='border-top:none;border-left:none;width:101pt'>Longueur
+  / Precision</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Description</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Exemples
+  ou Domaine de valeurs</td>
+ </tr>
+ <tr height=41 style='height:30.75pt'>
+  <td height=41 class=xl71 width=198 style='height:30.75pt;border-top:none;
+  width:149pt'>id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Identifiant
+  unique de la demande de conge ou d'absence.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>1,
+  2, 3</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>employe_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Employe
+  createur de la demande.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  employe.id</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>date_debut_demande</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>DATE</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  de debut souhaitee par l'employe.</td>
+  <td class=xl75 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>7/1/2026</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>date_fin_demande</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>DATE</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  de fin souhaitee par l'employe.</td>
+  <td class=xl75 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>7/10/2026</td>
+ </tr>
+ <tr height=41 style='height:30.75pt'>
+  <td height=41 class=xl71 width=198 style='height:30.75pt;border-top:none;
+  width:149pt'>date_debut_responsable</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>O</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>DATE</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  de debut validee ou modifiee par le responsable.</td>
+  <td class=xl75 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>7/1/2026</td>
+ </tr>
+ <tr height=41 style='height:30.75pt'>
+  <td height=41 class=xl71 width=198 style='height:30.75pt;border-top:none;
+  width:149pt'>date_fin_responsable</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>O</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>DATE</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  de fin validee ou modifiee par le responsable.</td>
+  <td class=xl75 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>7/8/2026</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>date_debut_dg</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>O</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>DATE</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  de debut validee ou modifiee par le DG.</td>
+  <td class=xl75 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>7/1/2026</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>date_fin_dg</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>O</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>DATE</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  de fin validee ou modifiee par le DG.</td>
+  <td class=xl75 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>7/8/2026</td>
+ </tr>
+ <tr height=41 style='height:30.75pt'>
+  <td height=41 class=xl71 width=198 style='height:30.75pt;border-top:none;
+  width:149pt'>status</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>ENUM</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Etat
+  courant de la demande.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>BROUILLON,
+  VALIDE_RESPONSABLE, VALIDE_DG, REFUSE</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>type</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>ENUM</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Type
+  de demande effectuee.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>CONGE,
+  ABSENCE</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>created_at</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>TIMESTAMP</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  et heure de creation de la demande.</td>
+  <td class=xl76 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>6/8/2026 10:30</td>
+ </tr>
+ <tr height=41 style='height:30.75pt'>
+  <td height=41 class=xl71 width=198 style='height:30.75pt;border-top:none;
+  width:149pt'>updated_at</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>O</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>TIMESTAMP</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Date
+  et heure de derniere modification de la demande.</td>
+  <td class=xl76 align=right width=320 style='border-top:none;border-left:none;
+  width:240pt'>6/8/2026 12:15</td>
+ </tr>
+ <tr height=24 style='height:18.0pt'>
+  <td colspan=6 height=24 class=xl66 width=1164 style='border-right:1.0pt solid black;
+  height:18.0pt;width:873pt'>Module Validation</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Table:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>signature_demande</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Colonne</td>
+  <td class=xl70 width=111 style='border-top:none;border-left:none;width:83pt'>Optionnelle
+  O/N</td>
+  <td class=xl70 width=80 style='border-top:none;border-left:none;width:60pt'>Type</td>
+  <td class=xl70 width=135 style='border-top:none;border-left:none;width:101pt'>Longueur
+  / Precision</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Description</td>
+  <td class=xl70 width=320 style='border-top:none;border-left:none;width:240pt'>Exemples
+  ou Domaine de valeurs</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Identifiant
+  unique de la signature de demande.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>1,
+  2, 3</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>demande_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Demande
+  de conge concernee par les signatures.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  demande_conge.id</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>employe_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>N</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Employe
+  ayant cree ou signe la demande.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  employe.id</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>responsable_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>O</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Responsable
+  ayant valide ou signe la demande.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  employe.id</td>
+ </tr>
+ <tr height=41 style='height:30.75pt'>
+  <td height=41 class=xl71 width=198 style='height:30.75pt;border-top:none;
+  width:149pt'>dg_id</td>
+  <td class=xl71 width=111 style='border-top:none;border-left:none;width:83pt'>O</td>
+  <td class=xl71 width=80 style='border-top:none;border-left:none;width:60pt'>BIGINT</td>
+  <td class=xl71 width=135 style='border-top:none;border-left:none;width:101pt'>-</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>Directeur
+  general ayant valide ou signe la demande.</td>
+  <td class=xl71 width=320 style='border-top:none;border-left:none;width:240pt'>FK
+  employe.id</td>
+ </tr>
+ <tr height=24 style='height:18.0pt'>
+  <td colspan=6 height=24 class=xl66 width=1164 style='border-right:1.0pt solid black;
+  height:18.0pt;width:873pt'>Enumerations</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Enumeration:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>role</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Valeur</td>
+  <td colspan=5 class=xl77 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Description</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>DG</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Directeur general.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>RH</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Utilisateur du service ressources humaines.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>EMPLOYE</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Employe simple.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>RESPONSABLE</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Employe responsable pouvant valider les
+  demandes.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Enumeration:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>status_demande</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Valeur</td>
+  <td colspan=5 class=xl77 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Description</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>BROUILLON</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Demande creee mais pas encore envoyee.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>VALIDE_EMPLOYE</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Demande confirmee ou envoyee par l'employe.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>VALIDE_RESPONSABLE</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Demande validee par le responsable.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>VALIDE_DG</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Demande validee definitivement par le DG.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>MODIFICATION_EMPLOYE</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Modification demandee ou effectuee au niveau
+  employe.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>MODIFICATION_RESPONSABLE</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Modification effectuee par le responsable.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>MODIFICATION_DG</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Modification effectuee par le DG.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>REFUSE</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Demande refusee.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>ANNULE</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Demande annulee.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl69 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Enumeration:</td>
+  <td colspan=5 class=xl72 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>type_demande</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl70 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>Valeur</td>
+  <td colspan=5 class=xl77 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Description</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>CONGE</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Demande de conge.</td>
+ </tr>
+ <tr height=21 style='height:15.75pt'>
+  <td height=21 class=xl71 width=198 style='height:15.75pt;border-top:none;
+  width:149pt'>ABSENCE</td>
+  <td colspan=5 class=xl80 width=966 style='border-right:1.0pt solid black;
+  border-left:none;width:724pt'>Demande d'absence.</td>
+ </tr>
+ <![if supportMisalignedColumns]>
+ <tr height=0 style='display:none'>
+  <td width=198 style='width:149pt'></td>
+  <td width=111 style='width:83pt'></td>
+  <td width=80 style='width:60pt'></td>
+  <td width=135 style='width:101pt'></td>
+  <td width=320 style='width:240pt'></td>
+  <td width=320 style='width:240pt'></td>
+ </tr>
+ <![endif]>
+</table>
+
+</body>
+
+</html>

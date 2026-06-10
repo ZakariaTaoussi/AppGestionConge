@@ -6,6 +6,7 @@ import { AdminDepartement, AdminDepartementRequest, AdminResponsable } from '../
 import { AdminCreateEmployeRequest, AdminEmploye, AdminUpdateEmployeRequest } from '../models/admin-employe.model';
 import { AdminJourFerie, AdminJourFerieRequest, AdminPage } from '../models/admin-jour-ferie.model';
 import { AdminProfil } from '../models/admin-profil.model';
+import { AdminRegleConge, AdminRegleCongeRequest } from '../models/admin-regle-conge.model';
 
 @Injectable({ providedIn: 'root' })
 export class AdminService {
@@ -13,6 +14,14 @@ export class AdminService {
 
   getProfil(): Observable<AdminProfil> {
     return this.http.get<AdminProfil>(`${environment.apiUrl}/admin/profil`);
+  }
+
+  getRegleCongeActive(): Observable<AdminRegleConge> {
+    return this.http.get<AdminRegleConge>(`${environment.apiUrl}/admin/regles-conge/active`);
+  }
+
+  createRegleConge(request: AdminRegleCongeRequest): Observable<AdminRegleConge> {
+    return this.http.post<AdminRegleConge>(`${environment.apiUrl}/admin/regles-conge`, request);
   }
 
   getJoursFeries(page: number, size: number): Observable<AdminPage<AdminJourFerie>> {

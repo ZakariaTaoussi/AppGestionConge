@@ -1,6 +1,6 @@
 package com.example.backend.dto.utilisateur;
 
-import com.example.backend.domain.Role;
+import com.example.backend.model.enums.Role;
 
 public record UtilisateurResponse(
         Long id,

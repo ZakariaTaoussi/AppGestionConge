@@ -1,72 +1,63 @@
 package com.example.backend.security;
 
-import com.example.backend.domain.Utilisateur;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
+import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
-import java.time.Instant;
-import java.util.Date;
 
 @Service
 public class JwtService {
 
-    private final SecretKey secretKey;
-    private final long expirationMs;
+    @Value("${app.jwt.secret}")
+    private String jwtSecret;
 
-    public JwtService(
-            @Value("${app.jwt.secret}") String secret,
-            @Value("${app.jwt.expiration-ms}") long expirationMs
-    ) {
-        if (secret.length() < 32) {
-            throw new IllegalArgumentException("La cle secrete JWT doit contenir au moins 32 caracteres");
-        }
+    @Value("${app.jwt.expiration-ms}")
+    private long jwtExpirationMs;
 
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        this.expirationMs = expirationMs;
-    }
-
-    public String generateToken(Utilisateur utilisateur) {
-        Instant now = Instant.now();
-        Instant expiration = now.plusMillis(expirationMs);
+    public String generateToken(String email) {
+        Date now = new Date();
+        Date expiration = new Date(now.getTime() + jwtExpirationMs);
 
         return Jwts.builder()
-                .subject(utilisateur.getEmail().getValue())
-                .claim("id", utilisateur.getId())
-                .claim("role", utilisateur.getRole().name())
-                .issuedAt(Date.from(now))
-                .expiration(Date.from(expiration))
-                .signWith(secretKey)
+                .subject(email)
+                .issuedAt(now)
+                .expiration(expiration)
+                .signWith(getSigningKey())
                 .compact();
     }
 
-    public boolean isValid(String token) {
-        try {
-            parseClaims(token);
-            return true;
-        } catch (RuntimeException exception) {
-            return false;
-        }
+    public String extractUsername(String token) {
+        return extractAllClaims(token).getSubject();
     }
 
-    public String extractEmail(String token) {
-        return parseClaims(token).getSubject();
+    public boolean isTokenValid(String token, String email) {
+        return email.equals(extractUsername(token)) && !isTokenExpired(token);
     }
 
-    public String extractRole(String token) {
-        Object value = parseClaims(token).get("role");
-        return value != null ? value.toString() : null;
+    private boolean isTokenExpired(String token) {
+        return extractAllClaims(token).getExpiration().before(new Date());
     }
 
-    private Claims parseClaims(String token) {
+    private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .verifyWith(secretKey)
+                .verifyWith(getSigningKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+    }
+
+    private SecretKey getSigningKey() {
+        byte[] keyBytes;
+        try {
+            keyBytes = Decoders.BASE64.decode(jwtSecret);
+        } catch (IllegalArgumentException exception) {
+            keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
+        }
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

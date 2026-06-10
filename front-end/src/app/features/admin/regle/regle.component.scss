@@ -2,6 +2,7 @@
 .settings-grid { display: grid; grid-template-columns: 1.5fr .8fr; gap: 16px; align-items: stretch; }
 .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .form-actions { grid-column: 1 / -1; align-items: center; }
+.error-message { grid-column: 1 / -1; }
 .success-message { margin-right: auto; color: #047857; font-size: .86rem; font-weight: 800; }
 .summary-card { border: 1px solid #cfd8e3; border-radius: 12px; background: #fff; box-shadow: 0 2px 5px rgba(15, 23, 42, .08); padding: 22px; }
 .summary-card span { color: #64748b; font-size: .78rem; font-weight: 800; text-transform: uppercase; }

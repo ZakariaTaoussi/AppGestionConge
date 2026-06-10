@@ -1,175 +1,118 @@
-import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, finalize, of, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Role } from '../enums/role.enum';
-import { LoginRequest, LoginResponse, SetupPasswordRequest } from '../models/auth.model';
+import { IAuthService } from '../interfaces/iauth.service';
+import { BackendAuthResponse, LoginRequest, LoginResponse, SetupPasswordRequest } from '../models/auth.model';
 import { Utilisateur } from '../models/utilisateur.model';
 
-export interface SessionUserView {
+type UserView = {
   nom: string;
   role: Role;
   avatar: string;
   departement: string;
-}
+};
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class AuthService implements IAuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
-  private readonly platformId = inject(PLATFORM_ID);
-  private readonly storageKey = 'gestion-conge-user';
-  private readonly isBrowser = isPlatformBrowser(this.platformId);
-  private readonly user = signal<Utilisateur | null>(this.loadUser());
+  private readonly apiUrl = `${environment.apiUrl}/auth`;
 
-  readonly currentUser = this.user.asReadonly();
-  readonly role = computed(() => this.user()?.role ?? null);
-  readonly isAuthenticated = computed(() => this.user() !== null);
+  readonly currentUser = signal<Utilisateur | null>(null);
 
   login(request: LoginRequest): Observable<LoginResponse> {
-    const body = {
-      email: request.email,
-      password: request.password,
-    };
+    const { email, password } = request;
 
     return this.http
-      .post<LoginResponse>(`${environment.apiUrl}/auth/login`, body)
-      .pipe(tap(response => this.saveUser(response.utilisateur, !!request.remember)));
+      .post<BackendAuthResponse>(`${this.apiUrl}/login`, { email, password }, { withCredentials: true })
+      .pipe(
+        map(response => ({
+          utilisateur: {
+            id: response.id,
+            nom: response.nom,
+            prenom: response.prenom,
+            email: response.email,
+            role: response.role,
+          },
+          message: response.message,
+        })),
+        tap(response => this.currentUser.set(response.utilisateur)),
+      );
   }
 
   logout(): Observable<void> {
-    return this.http.post<void>(`${environment.apiUrl}/auth/logout`, {}).pipe(
-      catchError(() => of(void 0)),
-      finalize(() => this.clearUser()),
-    );
+    return this.http
+      .post<void>(`${this.apiUrl}/logout`, {}, { withCredentials: true })
+      .pipe(tap(() => this.currentUser.set(null)));
+  }
+
+  me(): Observable<Utilisateur> {
+    return this.http
+      .get<Utilisateur>(`${this.apiUrl}/me`, { withCredentials: true })
+      .pipe(tap(utilisateur => this.currentUser.set(utilisateur)));
   }
 
   setupPassword(request: SetupPasswordRequest): Observable<void> {
-    return this.http.post<void>(`${environment.apiUrl}/auth/setup-password`, request);
+    return this.http.post<void>(`${this.apiUrl}/setup-password`, request, { withCredentials: true });
+  }
+
+  ensureCurrentUser(): Observable<Utilisateur | null> {
+    const utilisateur = this.currentUser();
+    if (utilisateur) {
+      return of(utilisateur);
+    }
+
+    return this.me().pipe(
+      catchError(() => {
+        this.currentUser.set(null);
+        return of(null);
+      }),
+    );
+  }
+
+  userView(fallback: UserView): UserView {
+    const utilisateur = this.currentUser();
+    if (!utilisateur) {
+      return fallback;
+    }
+
+    const fullName = `${utilisateur.prenom} ${utilisateur.nom}`.trim();
+    const avatar = `${utilisateur.prenom.charAt(0)}${utilisateur.nom.charAt(0)}`.trim().toUpperCase();
+
+    return {
+      ...fallback,
+      nom: fullName || fallback.nom,
+      role: utilisateur.role,
+      avatar: avatar || fallback.avatar,
+    };
   }
 
   logoutAndRedirect(): void {
     this.logout().subscribe({
-      complete: () => this.router.navigateByUrl('/auth/login'),
+      next: () => this.router.navigateByUrl('/auth/login'),
+      error: () => {
+        this.currentUser.set(null);
+        this.router.navigateByUrl('/auth/login');
+      },
     });
   }
 
-  userView(fallback: SessionUserView): SessionUserView {
-    const user = this.user();
-
-    if (!user) {
-      return fallback;
-    }
-
-    const fullName = [user.prenom, user.nom].filter(Boolean).join(' ').trim();
-
-    return {
-      ...fallback,
-      nom: fullName || user.email,
-      role: user.role,
-      avatar: this.initials(user),
-    };
-  }
-
-  homeRouteForRole(role: Role | null = this.role()): string {
+  homeRouteForRole(role: Role): string {
     switch (role) {
       case Role.ADMINISTRATEUR:
         return '/admin/dashboard';
-      case Role.DIRECTEUR_GENERAL:
-        return '/directeur-general/dashboard';
       case Role.RH:
         return '/rh/dashboard';
       case Role.RESPONSABLE:
         return '/responsable/dashboard';
+      case Role.DIRECTEUR_GENERAL:
+        return '/directeur-general/dashboard';
       case Role.EMPLOYE:
-        return '/employe/dashboard';
       default:
-        return '/auth/login';
+        return '/employe/dashboard';
     }
-  }
-
-  hasRole(roles: Role[]): boolean {
-    const currentRole = this.role();
-    return !!currentRole && roles.includes(currentRole);
-  }
-
-  private saveUser(user: Utilisateur, remember: boolean): void {
-    const normalizedUser = this.normalizeUser(user);
-    this.user.set(normalizedUser);
-
-    if (!this.isBrowser) {
-      return;
-    }
-
-    const serializedUser = JSON.stringify(normalizedUser);
-    localStorage.removeItem(this.storageKey);
-    sessionStorage.removeItem(this.storageKey);
-
-    if (remember) {
-      localStorage.setItem(this.storageKey, serializedUser);
-    } else {
-      sessionStorage.setItem(this.storageKey, serializedUser);
-    }
-  }
-
-  private clearUser(): void {
-    this.user.set(null);
-
-    if (!this.isBrowser) {
-      return;
-    }
-
-    localStorage.removeItem(this.storageKey);
-    sessionStorage.removeItem(this.storageKey);
-  }
-
-  private loadUser(): Utilisateur | null {
-    if (!this.isBrowser) {
-      return null;
-    }
-
-    return this.readUser(localStorage) ?? this.readUser(sessionStorage);
-  }
-
-  private readUser(storage: Storage): Utilisateur | null {
-    const rawUser = storage.getItem(this.storageKey);
-
-    if (!rawUser) {
-      return null;
-    }
-
-    try {
-      return this.normalizeUser(JSON.parse(rawUser) as Utilisateur);
-    } catch {
-      storage.removeItem(this.storageKey);
-      return null;
-    }
-  }
-
-  private normalizeUser(user: Utilisateur): Utilisateur {
-    return {
-      ...user,
-      role: this.normalizeRole(user.role),
-    };
-  }
-
-  private normalizeRole(role: unknown): Role {
-    if (Object.values(Role).includes(role as Role)) {
-      return role as Role;
-    }
-
-    throw new Error('Role utilisateur invalide');
-  }
-
-  private initials(user: Utilisateur): string {
-    const initials = [user.prenom, user.nom]
-      .filter(Boolean)
-      .map(value => value.trim().charAt(0))
-      .join('')
-      .toUpperCase();
-
-    return initials || user.email.slice(0, 2).toUpperCase();
   }
 }

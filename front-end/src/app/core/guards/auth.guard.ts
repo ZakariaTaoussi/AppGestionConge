@@ -1,7 +1,6 @@
-import { isPlatformBrowser } from '@angular/common';
+import { CanActivateFn, CanMatchFn, Route, Router, UrlSegment } from '@angular/router';
 import { inject } from '@angular/core';
-import { PLATFORM_ID } from '@angular/core';
-import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
+import { map } from 'rxjs';
 import { Role } from '../enums/role.enum';
 import { AuthService } from '../services/auth.service';
 
@@ -9,50 +8,37 @@ export const authGuard: CanActivateFn = (_route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (!isPlatformBrowser(inject(PLATFORM_ID))) {
-    return true;
-  }
-
-  if (authService.isAuthenticated()) {
-    return true;
-  }
-
-  return router.createUrlTree(['/auth/login'], {
-    queryParams: { returnUrl: state.url },
-  });
+  return authService.ensureCurrentUser().pipe(
+    map(utilisateur =>
+      utilisateur ? true : router.createUrlTree(['/auth/login'], { queryParams: { returnUrl: state.url } }),
+    ),
+  );
 };
 
 export const guestGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (!isPlatformBrowser(inject(PLATFORM_ID))) {
-    return true;
-  }
-
-  if (!authService.isAuthenticated()) {
-    return true;
-  }
-
-  return router.parseUrl(authService.homeRouteForRole());
+  return authService.ensureCurrentUser().pipe(
+    map(utilisateur => (utilisateur ? router.createUrlTree([authService.homeRouteForRole(utilisateur.role)]) : true)),
+  );
 };
 
-export const roleGuard: CanMatchFn = route => {
+export const roleGuard: CanMatchFn = (route: Route, segments: UrlSegment[]) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  const roles = route.data?.['roles'] as Role[] | undefined;
+  const allowedRoles = (route.data?.['roles'] as Role[] | undefined) ?? [];
+  const returnUrl = `/${segments.map(segment => segment.path).join('/')}`;
 
-  if (!isPlatformBrowser(inject(PLATFORM_ID))) {
-    return true;
-  }
+  return authService.ensureCurrentUser().pipe(
+    map(utilisateur => {
+      if (!utilisateur) {
+        return router.createUrlTree(['/auth/login'], { queryParams: { returnUrl } });
+      }
 
-  if (!authService.isAuthenticated()) {
-    return router.parseUrl('/auth/login');
-  }
-
-  if (roles?.length && !authService.hasRole(roles)) {
-    return router.parseUrl(authService.homeRouteForRole());
-  }
-
-  return true;
+      return allowedRoles.length === 0 || allowedRoles.includes(utilisateur.role)
+        ? true
+        : router.createUrlTree([authService.homeRouteForRole(utilisateur.role)]);
+    }),
+  );
 };
