@@ -36,7 +36,6 @@ export class AdminLayoutComponent {
     { label: 'Employes', route: '/admin/employes', icon: 'users' },
     { label: 'Departements', route: '/admin/departements', icon: 'building' },
     { label: 'Jour Ferie', route: '/admin/jour-ferie', icon: 'calendar-off' },
-    { label: 'Regle Conge', route: '/admin/regle', icon: 'file-text' },
     { label: 'Profil', route: '/admin/profil', icon: 'user' },
   ];
 

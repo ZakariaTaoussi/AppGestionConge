@@ -4,10 +4,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +20,13 @@ public class JwtService {
 
     @Value("${app.jwt.expiration-ms}")
     private long jwtExpirationMs;
+
+    @PostConstruct
+    void validateSecret() {
+        if (jwtSecret == null || jwtSecret.length() < 32) {
+            throw new IllegalStateException("app.jwt.secret doit contenir au moins 32 caracteres");
+        }
+    }
 
     public String generateToken(String email) {
         Date now = new Date();
@@ -35,8 +44,8 @@ public class JwtService {
         return extractAllClaims(token).getSubject();
     }
 
-    public boolean isTokenValid(String token, String email) {
-        return email.equals(extractUsername(token)) && !isTokenExpired(token);
+    public boolean isValid(String token, UserDetails userDetails) {
+        return userDetails.getUsername().equals(extractUsername(token)) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {

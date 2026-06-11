@@ -84,7 +84,7 @@
           </tr>
           <tr *ngFor="let departement of departements()">
             <td><strong>{{ departement.nom }}</strong></td>
-            <td>{{ departement.responsable ? (departement.responsable.prenom + ' ' + departement.responsable.nom) : '-' }}</td>
+            <td>{{ formatResponsableFromDepartement(departement) || '-' }}</td>
             <td class="actions">
               <button type="button" class="icon-btn edit" title="Modifier" (click)="modifier(departement)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
@@ -99,15 +99,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="pagination" *ngIf="totalPages() > 1">
-      <button type="button" class="btn-secondary" [disabled]="currentPage() === 0 || isLoading()" (click)="pagePrecedente()">
-        Precedent
-      </button>
-      <span>Page {{ currentPage() + 1 }} / {{ totalPages() }}</span>
-      <button type="button" class="btn-secondary" [disabled]="currentPage() + 1 >= totalPages() || isLoading()" (click)="pageSuivante()">
-        Suivant
-      </button>
     </div>
   </section>
 </div>

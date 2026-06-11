@@ -59,13 +59,6 @@ export const NAV_ITEMS: NavItem[] = [
   },
 
   {
-    label: 'Règles congé',
-    icon: 'Settings',
-    route: '/admin/regle',
-    roles: [Role.ADMINISTRATEUR]
-  },
-
-  {
     label: 'Historique',
     icon: 'History',
     route: '/user/historique',

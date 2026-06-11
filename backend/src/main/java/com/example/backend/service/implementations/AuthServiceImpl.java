@@ -11,14 +11,13 @@ import com.example.backend.repository.UtilisateurRepository;
 import com.example.backend.security.JwtService;
 import com.example.backend.service.interfaces.IAuthService;
 import jakarta.servlet.http.HttpServletResponse;
-import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -34,19 +33,15 @@ public class AuthServiceImpl implements IAuthService {
     @Value("${app.jwt.cookie-name:access_token}")
     private String cookieName;
 
-    @Value("${app.jwt.cookie-secure:false}")
-    private boolean cookieSecure;
-
     @Value("${app.jwt.expiration-ms}")
     private long jwtExpirationMs;
 
     @Override
     public AuthResponse login(LoginRequest request, HttpServletResponse response) {
         try {
-            Authentication authentication = authenticationManager.authenticate(
+            authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.email(), request.password())
             );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (BadCredentialsException exception) {
             throw new InvalidCredentialsException("Mauvais identifiants");
         }
@@ -69,14 +64,7 @@ public class AuthServiceImpl implements IAuthService {
 
     @Override
     public void logout(HttpServletResponse response) {
-        ResponseCookie cookie = ResponseCookie.from(cookieName, "")
-                .httpOnly(true)
-                .secure(cookieSecure)
-                .path("/")
-                .sameSite("Lax")
-                .maxAge(0)
-                .build();
-        response.addHeader("Set-Cookie", cookie.toString());
+        clearAccessTokenCookie(response);
         SecurityContextHolder.clearContext();
     }
 
@@ -91,11 +79,22 @@ public class AuthServiceImpl implements IAuthService {
     private void addAccessTokenCookie(HttpServletResponse response, String jwt) {
         ResponseCookie cookie = ResponseCookie.from(cookieName, jwt)
                 .httpOnly(true)
-                .secure(cookieSecure)
+                .secure(false)
                 .path("/")
                 .sameSite("Lax")
-                .maxAge(Duration.ofMillis(jwtExpirationMs))
+                .maxAge(jwtExpirationMs / 1000)
                 .build();
-        response.addHeader("Set-Cookie", cookie.toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+    }
+
+    private void clearAccessTokenCookie(HttpServletResponse response) {
+        ResponseCookie cookie = ResponseCookie.from(cookieName, "")
+                .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .sameSite("Lax")
+                .maxAge(0)
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
     }
 }

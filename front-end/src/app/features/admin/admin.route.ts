@@ -23,10 +23,6 @@ export const ADMIN_ROUTES: Routes = [
         loadComponent: () => import('./jour-ferie/jour-ferie.component').then(m => m.AdminJourFerieComponent),
       },
       {
-        path: 'regle',
-        loadComponent: () => import('./regle/regle.component').then(m => m.AdminRegleComponent),
-      },
-      {
         path: 'profil',
         loadComponent: () => import('./profil/profil.component').then(m => m.AdminProfilComponent),
       },
@@ -34,7 +30,6 @@ export const ADMIN_ROUTES: Routes = [
       { path: 'employe', redirectTo: 'employes', pathMatch: 'full' },
       { path: 'departement', redirectTo: 'departements', pathMatch: 'full' },
       { path: 'jours-feries', redirectTo: 'jour-ferie', pathMatch: 'full' },
-      { path: 'regles-conge', redirectTo: 'regle', pathMatch: 'full' },
     ],
   },
 ];

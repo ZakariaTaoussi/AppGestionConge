@@ -3,8 +3,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
-import { AdminDepartement, AdminDepartementRequest, AdminResponsable } from '../models/admin-departement.model';
-import { AdminService } from '../services/admin.service';
+import { CreateDepartementRequest, Departement } from '../models/departement.model';
+import { ResponsableCandidat } from '../models/responsable-candidat.model';
+import { AdminDepartementService } from '../services/admin-departement.service';
+import { AdminResponsableService } from '../services/admin-responsable.service';
 
 @Component({
   selector: 'app-admin-departements',
@@ -14,23 +16,21 @@ import { AdminService } from '../services/admin.service';
   styleUrls: ['./departements.component.scss'],
 })
 export class AdminDepartementsComponent implements OnInit {
-  private readonly adminService = inject(AdminService);
+  private readonly departementService = inject(AdminDepartementService);
+  private readonly responsableService = inject(AdminResponsableService);
   private readonly platformId = inject(PLATFORM_ID);
 
   editingId?: number;
   form = this.emptyForm();
-  readonly departements = signal<AdminDepartement[]>([]);
-  readonly candidats = signal<AdminResponsable[]>([]);
+  readonly departements = signal<Departement[]>([]);
+  readonly candidats = signal<ResponsableCandidat[]>([]);
   readonly responsableSearch = signal('');
-  readonly selectedResponsable = signal<AdminResponsable | null>(null);
+  readonly selectedResponsable = signal<ResponsableCandidat | null>(null);
   readonly showSuggestions = signal(false);
   readonly isLoading = signal(false);
   readonly isSaving = signal(false);
   readonly errorMessage = signal('');
-  readonly currentPage = signal(0);
-  readonly pageSize = 3;
-  readonly totalElements = signal(0);
-  readonly totalPages = signal(0);
+  readonly totalElements = computed(() => this.departements().length);
   readonly candidatsFiltres = computed(() => {
     const recherche = this.normalize(this.responsableSearch());
     if (!recherche) return [];
@@ -50,22 +50,17 @@ export class AdminDepartementsComponent implements OnInit {
   chargerDepartements(): void {
     this.errorMessage.set('');
     this.isLoading.set(true);
-    this.adminService
-      .getDepartements(this.currentPage(), this.pageSize)
+    this.departementService
+      .getDepartements()
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
-        next: response => {
-          this.departements.set(response.content);
-          this.currentPage.set(response.page);
-          this.totalElements.set(response.totalElements);
-          this.totalPages.set(response.totalPages);
-        },
+        next: departements => this.departements.set(departements),
         error: () => this.errorMessage.set('Impossible de charger les departements.'),
       });
   }
 
   chargerCandidats(): void {
-    this.adminService.getCandidatsResponsables().subscribe({
+    this.responsableService.getCandidatsResponsables().subscribe({
       next: candidats => this.candidats.set(candidats),
       error: () => this.errorMessage.set('Impossible de charger les responsables disponibles.'),
     });
@@ -82,19 +77,18 @@ export class AdminDepartementsComponent implements OnInit {
       return;
     }
 
-    const request: AdminDepartementRequest = {
+    const request: CreateDepartementRequest = {
       nom,
-      responsableId: this.selectedResponsable()?.id ?? null,
+      responsableId: this.selectedResponsable()?.utilisateurId ?? null,
     };
     const operation = this.editingId
-      ? this.adminService.updateDepartement(this.editingId, request)
-      : this.adminService.createDepartement(request);
+      ? this.departementService.updateDepartement(this.editingId, request)
+      : this.departementService.createDepartement(request);
 
     this.errorMessage.set('');
     this.isSaving.set(true);
     operation.pipe(finalize(() => this.isSaving.set(false))).subscribe({
       next: () => {
-        this.currentPage.set(0);
         this.reinitialiser();
         this.chargerDepartements();
         this.chargerCandidats();
@@ -103,25 +97,21 @@ export class AdminDepartementsComponent implements OnInit {
     });
   }
 
-  modifier(departement: AdminDepartement): void {
+  modifier(departement: Departement): void {
     this.editingId = departement.id;
     this.form = { nom: departement.nom };
-    this.selectedResponsable.set(departement.responsable);
-    this.responsableSearch.set(departement.responsable ? this.formatResponsable(departement.responsable) : '');
+    const responsable = this.findResponsable(departement.responsableId);
+    this.selectedResponsable.set(responsable);
+    this.responsableSearch.set(responsable ? this.formatResponsable(responsable) : this.formatResponsableFromDepartement(departement));
     this.showSuggestions.set(false);
   }
 
-  supprimer(departement: AdminDepartement): void {
+  supprimer(departement: Departement): void {
     this.errorMessage.set('');
-    this.adminService.deleteDepartement(departement.id).subscribe({
+    this.departementService.deleteDepartement(departement.id).subscribe({
       next: () => {
         if (this.editingId === departement.id) this.reinitialiser();
         this.departements.update(departements => departements.filter(item => item.id !== departement.id));
-        this.totalElements.update(total => Math.max(total - 1, 0));
-        this.totalPages.set(Math.ceil(this.totalElements() / this.pageSize));
-        if (this.currentPage() >= this.totalPages() && this.currentPage() > 0) {
-          this.currentPage.update(page => page - 1);
-        }
         this.chargerDepartements();
         this.chargerCandidats();
       },
@@ -141,7 +131,7 @@ export class AdminDepartementsComponent implements OnInit {
     this.showSuggestions.set(Boolean(this.responsableSearch().trim()));
   }
 
-  selectionnerResponsable(candidat: AdminResponsable): void {
+  selectionnerResponsable(candidat: ResponsableCandidat): void {
     this.selectedResponsable.set(candidat);
     this.responsableSearch.set(this.formatResponsable(candidat));
     this.showSuggestions.set(false);
@@ -163,25 +153,21 @@ export class AdminDepartementsComponent implements OnInit {
     this.retirerResponsable();
   }
 
-  pagePrecedente(): void {
-    if (this.currentPage() > 0) {
-      this.currentPage.update(page => page - 1);
-      this.chargerDepartements();
-    }
-  }
-
-  pageSuivante(): void {
-    if (this.currentPage() + 1 < this.totalPages()) {
-      this.currentPage.update(page => page + 1);
-      this.chargerDepartements();
-    }
-  }
-
-  formatResponsable(responsable: AdminResponsable | null): string {
+  formatResponsable(responsable: ResponsableCandidat | null): string {
     return responsable ? `${responsable.prenom} ${responsable.nom} - ${responsable.role}` : '';
   }
 
-  private emptyForm(): Pick<AdminDepartementRequest, 'nom'> {
+  formatResponsableFromDepartement(departement: Departement): string {
+    return departement.responsablePrenom && departement.responsableNom
+      ? `${departement.responsablePrenom} ${departement.responsableNom}`
+      : '';
+  }
+
+  private findResponsable(id: number | null): ResponsableCandidat | null {
+    return id ? this.candidats().find(candidat => candidat.id === id || candidat.utilisateurId === id) ?? null : null;
+  }
+
+  private emptyForm(): Pick<CreateDepartementRequest, 'nom'> {
     return { nom: '' };
   }
 
